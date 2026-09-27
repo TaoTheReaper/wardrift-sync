@@ -1,0 +1,29 @@
+{
+  // wardrift-sync — receives Wardrive Go auto-backup .zip and forwards the
+  // observations to Wardrift. Zero-tap: the phone pushes on close, this syncs.
+  "name": "wardrift-sync",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+
+  // KV: stores the latest backup .zip (2.5MB, well under the 25MB value cap).
+  "kv_namespaces": [
+    { "binding": "BACKUPS", "id": "eac01abb6a4b481b9b3bd71e39d072ec" }
+  ],
+
+  // D1: dedup + state.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wardrift-sync",
+      "database_id": "2a583bfc-ed03-4292-93fe-cf2ce37f1c69"
+    }
+  ],
+
+  // drain the backlog / catch missed pushes
+  "triggers": { "crons": ["*/10 * * * *"] }
+
+  // Secrets (set with wrangler secret put):
+  //   SYNC_TOKEN         -> Bearer token the app must send (set same in app)
+  //   WARDRIFT_API_KEY   -> your wardrift.net character API key (wdk_...)
+}

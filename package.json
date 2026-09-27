@@ -1,0 +1,14 @@
+{
+  "name": "wardrift-sync",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2",
+    "sql.js": "^1.12.0"
+  }
+}

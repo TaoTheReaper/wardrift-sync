@@ -1,0 +1,4 @@
+node_modules/
+.sync_token.txt
+.wrangler/
+seed.sql
